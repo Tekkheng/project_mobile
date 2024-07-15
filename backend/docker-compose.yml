@@ -1,0 +1,44 @@
+version: "3"
+services:
+  flutter_uas:
+    build: ./php
+    image: flutter_uas_php:latest
+    container_name: flutter_uas
+    hostname: "flutter_uas"
+    volumes:
+      - ./src:/var/www/html
+      - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    working_dir: /var/www/html
+    depends_on:
+      - flutter_uasdb
+
+  flutter_uasdb:
+    image: mariadb:10.2
+    container_name: flutter_uasdb
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "33306:3306"
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/conf.d:/etc/mysql/conf.d:ro
+    environment:
+      MYSQL_USER: tekkheng
+      MYSQL_PASSWORD: p455w0rd1!.
+      MYSQL_ROOT_PASSWORD: p455w0rd
+      TZ: Asia/Jakarta
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+
+  nginx_flutter_uas:
+    build: ./nginx
+    image: nginx_flutter_uas:latest
+    container_name: nginx_flutter_uas
+    hostname: "nginx_flutter_uas"
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - flutter_uas
