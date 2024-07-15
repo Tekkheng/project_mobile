@@ -71,11 +71,11 @@ class _PieChartScreen extends ConsumerState<PieChartScreen> {
               pointColorMapper: (GDPData data, _) {
                 switch (data.continent) {
                   case 'Positive':
-                    return Colors.green; // Custom color for 'Positive'
+                    return Colors.green;
                   case 'Negative':
-                    return Colors.red; // Custom color for 'Negative'
+                    return Colors.red; 
                   case 'Netral':
-                    return Colors.blue; // Custom color for 'Netral'
+                    return Colors.blue; 
                   default:
                     return Colors.grey;
                 }
