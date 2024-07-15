@@ -42,45 +42,52 @@ class _DataSetScreenState extends ConsumerState<DataSetScreen> {
                 scrollDirection: Axis.horizontal,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: DataTable(
-                    columnSpacing: 25,
-                    horizontalMargin: 30,
-                    columns: const [
-                      DataColumn(label: Text('No')),
-                      DataColumn(label: Text('ID Str')),
-                      DataColumn(label: Text('Clean Text')),
-                      DataColumn(label: Text('Quote Count')),
-                      DataColumn(label: Text('Reply Count')),
-                      DataColumn(label: Text('Retweet Count')),
-                      DataColumn(label: Text('Favorite Count')),
-                      DataColumn(label: Text('Lang')),
-                      DataColumn(label: Text('User Id Str')),
-                      DataColumn(label: Text('Conversation Id Str')),
-                      DataColumn(label: Text('Username')),
-                      DataColumn(label: Text('Tweet Url')),
-                      DataColumn(label: Text('Label')),
-                      DataColumn(label: Text('Created At')),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Source Code: https://github.com/Tekkheng/project_mobile',style: TextStyle(color: Colors.black),),
+                      const SizedBox(height: 10),
+                      DataTable(
+                        columnSpacing: 25,
+                        horizontalMargin: 30,
+                        columns: const [
+                          DataColumn(label: Text('No')),
+                          DataColumn(label: Text('ID Str')),
+                          DataColumn(label: Text('Clean Text')),
+                          DataColumn(label: Text('Quote Count')),
+                          DataColumn(label: Text('Reply Count')),
+                          DataColumn(label: Text('Retweet Count')),
+                          DataColumn(label: Text('Favorite Count')),
+                          DataColumn(label: Text('Lang')),
+                          DataColumn(label: Text('User Id Str')),
+                          DataColumn(label: Text('Conversation Id Str')),
+                          DataColumn(label: Text('Username')),
+                          DataColumn(label: Text('Tweet Url')),
+                          DataColumn(label: Text('Label')),
+                          DataColumn(label: Text('Created At')),
+                        ],
+                        rows: data.asMap().entries.map((entry) {
+                          final index = entry.key + 1;
+                          final dataSet = entry.value;
+                          return DataRow(cells: [
+                            DataCell(Text('$index')),
+                            DataCell(Text(dataSet.idStr.toString())),
+                            DataCell(Text(dataSet.cleanTxt)),
+                            DataCell(Text(dataSet.quoteCount.toString())),
+                            DataCell(Text(dataSet.replyCount.toString())),
+                            DataCell(Text(dataSet.retweetCount.toString())),
+                            DataCell(Text(dataSet.favCount.toString())),
+                            DataCell(Text(dataSet.lang)),
+                            DataCell(Text(dataSet.userIdStr.toString())),
+                            DataCell(Text(dataSet.conversationIdStr.toString())),
+                            DataCell(Text(dataSet.username)),
+                            DataCell(Text(dataSet.tweetUrl)),
+                            DataCell(Text(dataSet.label)),
+                            DataCell(Text(dataSet.createdAt)),
+                          ]);
+                        }).toList(),
+                      ),
                     ],
-                    rows: data.asMap().entries.map((entry) {
-                      final index = entry.key + 1;
-                      final dataSet = entry.value;
-                      return DataRow(cells: [
-                        DataCell(Text('$index')),
-                        DataCell(Text(dataSet.idStr.toString())),
-                        DataCell(Text(dataSet.cleanTxt)),
-                        DataCell(Text(dataSet.quoteCount.toString())),
-                        DataCell(Text(dataSet.replyCount.toString())),
-                        DataCell(Text(dataSet.retweetCount.toString())),
-                        DataCell(Text(dataSet.favCount.toString())),
-                        DataCell(Text(dataSet.lang)),
-                        DataCell(Text(dataSet.userIdStr.toString())),
-                        DataCell(Text(dataSet.conversationIdStr.toString())),
-                        DataCell(Text(dataSet.username)),
-                        DataCell(Text(dataSet.tweetUrl)),
-                        DataCell(Text(dataSet.label)),
-                        DataCell(Text(dataSet.createdAt)),
-                      ]);
-                    }).toList(),
                   ),
                 ),
               ),

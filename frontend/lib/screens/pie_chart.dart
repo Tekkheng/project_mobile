@@ -58,7 +58,7 @@ class _PieChartScreen extends ConsumerState<PieChartScreen> {
       ),
       body: SafeArea(
         child: SfCircularChart(
-          title: const ChartTitle(text: 'Presentase Sentimen Pie Chart'),
+          title: const ChartTitle(text: 'Presentase Sentimen Pie Chart\n\nSource Code: https://github.com/Tekkheng/project_mobile'),
           legend: const Legend(
               isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
           tooltipBehavior: _tooltipBehavior,

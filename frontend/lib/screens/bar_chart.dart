@@ -55,7 +55,7 @@ class _BarChartScreen extends ConsumerState<BarChartScreen> {
       ),
       body: SafeArea(
         child: SfCartesianChart(
-          title: const ChartTitle(text: 'Presentase Sentimen Bar Chart'),
+          title: const ChartTitle(text: 'Presentase Sentimen Bar Chart\n\nSource Code: https://github.com/Tekkheng/project_mobile'),
           legend: const Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
           tooltipBehavior: _tooltipBehavior,
           series: <CartesianSeries>[
