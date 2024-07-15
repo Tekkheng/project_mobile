@@ -2,4 +2,8 @@
 ```zsh
 Nama : Tek Kheng
 Nim : 20210801205
+
+
+flutter pub get
+
 ```
