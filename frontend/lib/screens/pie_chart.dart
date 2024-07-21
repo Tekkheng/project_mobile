@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/data.dart';
 import 'package:frontend/providers/data.dart';
+import 'package:frontend/screens/confusion_matrix.dart';
 import 'package:frontend/screens/bar_chart.dart';
+import 'package:frontend/screens/confusion_matrix_multiclass.dart';
 import 'package:frontend/screens/dashboard.dart';
 import 'package:frontend/screens/dataset.dart';
 import 'package:frontend/screens/manage_users.dart';
@@ -58,7 +60,7 @@ class _PieChartScreen extends ConsumerState<PieChartScreen> {
       ),
       body: SafeArea(
         child: SfCircularChart(
-          title: const ChartTitle(text: 'Presentase Sentimen Pie Chart\n\nSource Code: https://github.com/Tekkheng/project_mobile'),
+          title: const ChartTitle(text: 'Presentase Sentimen Pie Chart'),
           legend: const Legend(
               isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
           tooltipBehavior: _tooltipBehavior,
@@ -73,9 +75,9 @@ class _PieChartScreen extends ConsumerState<PieChartScreen> {
                   case 'Positive':
                     return Colors.green;
                   case 'Negative':
-                    return Colors.red; 
+                    return Colors.red;
                   case 'Netral':
-                    return Colors.blue; 
+                    return Colors.blue;
                   default:
                     return Colors.grey;
                 }
@@ -119,7 +121,19 @@ class _PieChartScreen extends ConsumerState<PieChartScreen> {
                 builder: (ctx) => const BarChartScreen(),
               ),
             );
-          } else {
+          } else if (identifier == "confusion_matrix") {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (ctx) => const ConfusionMatrix(),
+              ),
+            );
+          } else if (identifier == "confusion_matrix_multiclass") {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (ctx) => const ConfusionMatrixMulticlass(),
+              ),
+            );
+          }else {
             Navigator.of(context).pop();
           }
         },

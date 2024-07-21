@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/providers/user.dart';
+import 'package:frontend/screens/confusion_matrix.dart';
 import 'package:frontend/screens/bar_chart.dart';
+import 'package:frontend/screens/confusion_matrix_multiclass.dart';
 import 'package:frontend/screens/dataset.dart';
 import 'package:frontend/screens/manage_users.dart';
 import 'package:frontend/screens/pie_chart.dart';
@@ -34,6 +36,18 @@ class DashBoard extends ConsumerWidget {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (ctx) => const BarChartScreen(),
+        ),
+      );
+    } else if (identifier == "confusion_matrix") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx) => const ConfusionMatrix(),
+        ),
+      );
+    } else if (identifier == "confusion_matrix_multiclass") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx) => const ConfusionMatrixMulticlass(),
         ),
       );
     }

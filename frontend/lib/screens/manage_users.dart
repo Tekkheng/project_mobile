@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/providers/user.dart';
+import 'package:frontend/screens/confusion_matrix.dart';
 import 'package:frontend/screens/bar_chart.dart';
+import 'package:frontend/screens/confusion_matrix_multiclass.dart';
 import 'package:frontend/screens/dashboard.dart';
 import 'package:frontend/screens/dataset.dart';
 import 'package:frontend/screens/pie_chart.dart';
@@ -53,6 +55,18 @@ class _ManageUsersState extends ConsumerState<ManageUsers> {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (ctx) => const BarChartScreen(),
+              ),
+            );
+          } else if (identifier == "confusion_matrix") {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (ctx) => const ConfusionMatrix(),
+              ),
+            );
+          } else if (identifier == "confusion_matrix_multiclass") {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (ctx) => const ConfusionMatrixMulticlass(),
               ),
             );
           } else {

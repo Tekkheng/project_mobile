@@ -87,6 +87,32 @@ class MainDrawer extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onPrimaryContainer),
             ),
           ),
+          ListTile(
+            onTap: () {
+              changeScreen("confusion_matrix", context);
+            },
+            leading: Icon(Icons.airline_stops_sharp,
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
+            title: Text(
+              "Confusion Matrix",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              changeScreen("confusion_matrix_multiclass", context);
+            },
+            leading: Icon(Icons.airline_stops_outlined,
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
+            title: Text(
+              "Confusion Matrix Multiclass",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+            ),
+          ),
           const SizedBox(
             height: 30,
           ),

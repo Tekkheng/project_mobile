@@ -1,38 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend/providers/data.dart';
-import 'package:frontend/screens/confusion_matrix.dart';
+import 'package:frontend/models/accuracy.dart';
 import 'package:frontend/screens/bar_chart.dart';
 import 'package:frontend/screens/confusion_matrix_multiclass.dart';
 import 'package:frontend/screens/dashboard.dart';
+import 'package:frontend/screens/dataset.dart';
 import 'package:frontend/screens/manage_users.dart';
 import 'package:frontend/screens/pie_chart.dart';
 import 'package:frontend/widgets/drawer.dart';
 
-class DataSetScreen extends ConsumerStatefulWidget {
-  const DataSetScreen({super.key});
+class ConfusionMatrix extends StatefulWidget {
+  const ConfusionMatrix({super.key});
 
   @override
-  ConsumerState<DataSetScreen> createState() => _DataSetScreenState();
+  State<ConfusionMatrix> createState() => _ConfusionMatrixState();
 }
 
-class _DataSetScreenState extends ConsumerState<DataSetScreen> {
-  @override
-  void initState() {
-    ref.read(dataProvider.notifier).getData();
-    super.initState();
-  }
-
+class _ConfusionMatrixState extends State<ConfusionMatrix> {
   @override
   Widget build(BuildContext context) {
-    // final data = ref.watch(dataProvider);
-    final data = ref.watch(dataProvider
-        .select((value) => value.sublist(0, 499))); // Mengambil 10 data pertama
-    // print(data);
-
+    const data = [
+      AccuracyModel(
+        type: 'KKN',
+        accuracy: 83.75,
+        mae: 52.10,
+        mse: 290.12,
+        rmse: 170.33,
+      ),
+      AccuracyModel(
+        type: 'K-Means',
+        accuracy: 83.75,
+        mae: 52.10,
+        mse: 290.12,
+        rmse: 170.33,
+      ),
+      //
+      AccuracyModel(
+        type: 'LSTM',
+        accuracy: 85,
+        mae: 20,
+        mse: 30,
+        rmse: 55,
+      )
+    ];
     Widget content = data.isEmpty
         ? const Center(
-            child: Text('Dataset masih Kosong!'),
+            child: Text('Data Accuracy masih Kosong!'),
           )
         : Card(
             child: Padding(
@@ -45,42 +57,24 @@ class _DataSetScreenState extends ConsumerState<DataSetScreen> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: DataTable(
-                    columnSpacing: 25,
-                    horizontalMargin: 30,
+                    columnSpacing: 20,
+                    horizontalMargin: 5,
                     columns: const [
-                      DataColumn(label: Text('No')),
-                      DataColumn(label: Text('ID Str')),
-                      DataColumn(label: Text('Clean Text')),
-                      DataColumn(label: Text('Quote Count')),
-                      DataColumn(label: Text('Reply Count')),
-                      DataColumn(label: Text('Retweet Count')),
-                      DataColumn(label: Text('Favorite Count')),
-                      DataColumn(label: Text('Lang')),
-                      DataColumn(label: Text('User Id Str')),
-                      DataColumn(label: Text('Conversation Id Str')),
-                      DataColumn(label: Text('Username')),
-                      DataColumn(label: Text('Tweet Url')),
-                      DataColumn(label: Text('Label')),
-                      DataColumn(label: Text('Created At')),
+                      DataColumn(label: Text('Method')),
+                      DataColumn(label: Text('Accuracy')),
+                      DataColumn(label: Text('MAE')),
+                      DataColumn(label: Text('MSE')),
+                      DataColumn(label: Text('RMSE')),
                     ],
                     rows: data.asMap().entries.map((entry) {
-                      final index = entry.key + 1;
                       final dataSet = entry.value;
                       return DataRow(cells: [
-                        DataCell(Text('$index')),
-                        DataCell(Text(dataSet.idStr.toString())),
-                        DataCell(Text(dataSet.cleanTxt)),
-                        DataCell(Text(dataSet.quoteCount.toString())),
-                        DataCell(Text(dataSet.replyCount.toString())),
-                        DataCell(Text(dataSet.retweetCount.toString())),
-                        DataCell(Text(dataSet.favCount.toString())),
-                        DataCell(Text(dataSet.lang)),
-                        DataCell(Text(dataSet.userIdStr.toString())),
-                        DataCell(Text(dataSet.conversationIdStr.toString())),
-                        DataCell(Text(dataSet.username)),
-                        DataCell(Text(dataSet.tweetUrl)),
-                        DataCell(Text(dataSet.label)),
-                        DataCell(Text(dataSet.createdAt)),
+                        DataCell(Text(dataSet.type)),
+                        DataCell(
+                            Text("${dataSet.accuracy!.toStringAsFixed(2)}%")),
+                        DataCell(Text("${dataSet.mae!.toStringAsFixed(2)}%")),
+                        DataCell(Text("${dataSet.mse!.toStringAsFixed(2)}%")),
+                        DataCell(Text("${dataSet.rmse!.toStringAsFixed(2)}%")),
                       ]);
                     }).toList(),
                   ),
@@ -91,7 +85,7 @@ class _DataSetScreenState extends ConsumerState<DataSetScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("DataSet Page"),
+          title: const Text("Confusion Matrix Page"),
           actions: [
             IconButton(
               onPressed: () {},
@@ -126,10 +120,10 @@ class _DataSetScreenState extends ConsumerState<DataSetScreen> {
                   builder: (ctx) => const BarChartScreen(),
                 ),
               );
-            } else if (identifier == "confusion_matrix") {
+            } else if (identifier == "dataset") {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (ctx) => const ConfusionMatrix(),
+                  builder: (ctx) => const DataSetScreen(),
                 ),
               );
             } else if (identifier == "confusion_matrix_multiclass") {

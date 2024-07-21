@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/data.dart';
 import 'package:frontend/providers/data.dart';
+import 'package:frontend/screens/confusion_matrix.dart';
+import 'package:frontend/screens/confusion_matrix_multiclass.dart';
 import 'package:frontend/screens/dashboard.dart';
 import 'package:frontend/screens/dataset.dart';
 import 'package:frontend/screens/manage_users.dart';
@@ -55,8 +57,9 @@ class _BarChartScreen extends ConsumerState<BarChartScreen> {
       ),
       body: SafeArea(
         child: SfCartesianChart(
-          title: const ChartTitle(text: 'Presentase Sentimen Bar Chart\n\nSource Code: https://github.com/Tekkheng/project_mobile'),
-          legend: const Legend(isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
+          title: const ChartTitle(text: 'Presentase Sentimen Bar Chart'),
+          legend: const Legend(
+              isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
           tooltipBehavior: _tooltipBehavior,
           series: <CartesianSeries>[
             ColumnSeries<GDPData, String>(
@@ -74,7 +77,8 @@ class _BarChartScreen extends ConsumerState<BarChartScreen> {
                   case 'Netral':
                     return Colors.blue; // Warna untuk kategori Netral
                   default:
-                    return Colors.grey; // Warna default jika tidak ada kategori yang sesuai
+                    return Colors
+                        .grey; // Warna default jika tidak ada kategori yang sesuai
                 }
               },
             ),
@@ -111,6 +115,18 @@ class _BarChartScreen extends ConsumerState<BarChartScreen> {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (ctx) => const PieChartScreen(),
+              ),
+            );
+          } else if (identifier == "confusion_matrix") {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (ctx) => const ConfusionMatrix(),
+              ),
+            );
+          } else if (identifier == "confusion_matrix_multiclass") {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (ctx) => const ConfusionMatrixMulticlass(),
               ),
             );
           } else {
